@@ -1,0 +1,19 @@
+_format_version: "2.1"
+
+services:
+  - name: go-app
+    url: http://go-app:8090  # Internal access only
+    routes:
+      - name: go-app-route
+        paths:
+          - /api
+        strip_path: true
+        methods:
+          - GET
+          - POST
+        plugins:
+          - name: jwt  # Enable JWT authentication
+            config:
+              key_claim_name: iss
+              secret_is_base64: false
+              run_on_preflight: true
